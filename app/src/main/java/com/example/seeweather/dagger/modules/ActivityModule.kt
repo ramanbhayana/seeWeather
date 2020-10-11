@@ -26,6 +26,6 @@ class ActivityModule(private val activity: BaseActivity<*>){
                 networkHelper,
                 centralRepository
             )
-            //this lambda creates and return MainActivityViewModel
+
         }).get(MainActivityViewModel::class.java)
 }

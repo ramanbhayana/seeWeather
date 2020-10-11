@@ -48,7 +48,7 @@ class MainActivityViewModel(
         }
     }
 
-    // Live Data variables
+    // Live Data instances
     val weatherLiveData = MutableLiveData<WeatherEntity>()
     val temperature = MutableLiveData<CharSequence>()
     val temperatureDesc = MutableLiveData<CharSequence>()
@@ -85,7 +85,6 @@ class MainActivityViewModel(
             getWeatherByCityName(cityName)
         }
     }
-
     fun getWeatherEntityData(it: WeatherDataClass?): WeatherEntity? {
         val weatherEntity = WeatherEntity(
             jobId,

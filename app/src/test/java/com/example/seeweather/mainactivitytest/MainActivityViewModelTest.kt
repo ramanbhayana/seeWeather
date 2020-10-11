@@ -24,8 +24,6 @@ class MainActivityViewModelTest : KotlinBaseMockObjectsClass() {
     @Rule
     @JvmField
     val rule = InstantTaskExecutorRule()
-
-    val mockViewModel = mock<MainActivityViewModel>()
     private val mockMainActivityRepositoryTest = mock<CentralRepository>()
     private val messageStringObserver = mock<Observer<Resource<String>>>()
     private val weatherLiveDataObserver = mock<Observer<WeatherEntity>>()
@@ -86,6 +84,7 @@ class MainActivityViewModelTest : KotlinBaseMockObjectsClass() {
         val mWeatherEntity = viewModel.getWeatherEntityData(weatherDataClass)
         assertEquals(weatherEntity, mWeatherEntity)
     }
+
     @Test
     fun verifyGetWeatherByCityNameError() {
         whenever(mockNetworkHelper.isNetworkConnected()).thenReturn(true)
@@ -106,6 +105,7 @@ class MainActivityViewModelTest : KotlinBaseMockObjectsClass() {
             )
         }
     }
+
     @Test
     fun verifySetLiveData() {
         viewModel.temperature.observeForever(temperatureObserver)
@@ -158,8 +158,5 @@ class MainActivityViewModelTest : KotlinBaseMockObjectsClass() {
                 .onChanged(WeatherDataClass())
         }
     }
-
-
-
 
 }

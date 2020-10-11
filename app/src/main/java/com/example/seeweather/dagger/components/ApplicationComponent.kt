@@ -26,14 +26,6 @@ interface ApplicationComponent {
     @ApplicationContext
     fun getContext(): Context
 
-    /**
-     * These methods are written in ApplicationComponent because the instance of
-     * NetworkService is singleton and is maintained in the ApplicationComponent's implementation by Dagger
-     * For NetworkService singleton instance to be accessible to say DummyActivity's DummyViewModel
-     * this ApplicationComponent must expose a method that returns NetworkService instance
-     * This method will be called when NetworkService is injected in DummyViewModel.
-     * Also, in ActivityComponent you can find dependencies = [ApplicationComponent::class] to link this relationship
-     */
     fun getNetworkService(): NetworkService
 
     fun getNetworkHelper(): NetworkHelper

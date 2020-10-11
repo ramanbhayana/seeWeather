@@ -29,12 +29,6 @@ class ApplicationModule(private val application: WeatherApplication) {
     @Singleton
     @ApplicationContext
     fun provideContext(): Context = application
-
-    /**
-     * Since this function do not have @Singleton then each time CompositeDisposable is injected
-     * then a new instance of CompositeDisposable will be provided
-     */
-
     @Provides
     fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
 
