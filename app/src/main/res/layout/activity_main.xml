@@ -1,18 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable
+            name="mainActivityViewModel"
+            type="com.example.seeweather.viewModel.MainActivityViewModel" />
+    </data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@color/white"
+        android:focusableInTouchMode="true"
+        tools:context=".main.MainActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/etSearchCity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40dp"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences"
+                android:maxHeight="@dimen/dimen_60dp"
+                android:maxLines="2"
+                app:queryHint="@string/hint_enter_city_name"
+                android:background="@drawable/transparent_cylendrical"
+                android:paddingStart="@dimen/dimen_16dp"
+                android:paddingEnd="@dimen/dimen_16dp"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="@dimen/text_dimen_14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/body_scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0dp"
+            android:fadingEdge="vertical"
+            android:fadingEdgeLength="@dimen/dimen_8dp"
+            android:overScrollMode="never"
+            android:requiresFadingEdge="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_layout">
+
+          <RelativeLayout
+              android:id="@+id/rl_body"
+              android:layout_marginTop="@dimen/dimen_20dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:id="@+id/tvCityName"
+                  app:drawableStartCompat="@drawable/ic_location"
+                  android:textColor="@android:color/black"
+                  android:layout_centerHorizontal="true"
+                  android:drawablePadding="@dimen/dimen_4dp"
+                  android:textSize="@dimen/text_dimen_20sp"
+                  android:text="@{mainActivityViewModel.weatherLiveData.name}"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+
+              <ImageView
+                  android:id="@+id/ivWeatherIcon"
+                  android:layout_width="@dimen/dimen_50dp"
+                  android:layout_height="@dimen/dimen_50dp"
+                  android:layout_centerHorizontal="true"
+                  android:contentDescription="Weather Icon"
+                  android:scaleType="fitCenter"
+                  android:layout_below="@+id/tvCityName"
+                  android:layout_marginTop="@dimen/dimen_5dp"
+                  app:icon="@{mainActivityViewModel.weatherLiveData.icon}"/>
+              <TextView
+                  android:id="@+id/tvTemperature"
+                  android:layout_width="wrap_content"
+                  android:layout_centerHorizontal="true"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/colorAccent"
+                  android:textSize="@dimen/text_dimen_60sp"
+                  android:layout_below="@+id/ivWeatherIcon"
+                  android:layout_marginTop="@dimen/dimen_5dp"
+                  android:text="@{mainActivityViewModel.temperature}" />
+              <TextView
+                  android:id="@+id/tvTemperatureDesc"
+                  android:layout_width="wrap_content"
+                  android:layout_below="@+id/tvTemperature"
+                  android:layout_centerHorizontal="true"
+                  android:layout_height="wrap_content"
+                  android:textColor="@android:color/black"
+                  android:textSize="@dimen/text_dimen_14sp"
+                  android:layout_marginTop="@dimen/dimen_2dp"
+                  android:text="@{mainActivityViewModel.temperatureDesc}" />
+              <GridLayout
+                  android:id="@+id/group_divider"
+                  android:layout_below="@+id/tvTemperatureDesc"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="@dimen/dimen_24dp"
+                  android:columnCount="2">
+
+              <TextView
+                  android:id="@+id/tvSunRise"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_rowWeight="1"
+                  android:layout_columnWeight="1"
+                  android:layout_marginEnd="@dimen/dimen_16dp"
+                  android:gravity="center"
+                  android:textColor="@android:color/black"
+                  android:textSize="@dimen/text_dimen_14sp"
+                  app:drawableTopCompat="@drawable/ic_sunrise"
+                  android:text="@{mainActivityViewModel.sunrise}"
+                  android:layout_marginRight="@dimen/dimen_16dp"
+                  tools:ignore="UnusedAttribute" />
+
+              <TextView
+                  android:id="@+id/tvSunSet"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_rowWeight="1"
+                  android:layout_columnWeight="1"
+                  android:layout_marginEnd="@dimen/dimen_16dp"
+                  android:gravity="center"
+                  android:textColor="@android:color/black"
+                  android:textSize="@dimen/text_dimen_14sp"
+                  app:drawableTopCompat="@drawable/ic_sunset"
+                  android:text="@{mainActivityViewModel.sunset}"
+                  tools:ignore="UnusedAttribute"
+                  android:layout_marginRight="@dimen/dimen_16dp" />
+
+              <TextView
+                  android:id="@+id/tvWindSpeed"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_rowWeight="1"
+                  android:layout_columnWeight="1"
+                  android:layout_marginTop="@dimen/dimen_16dp"
+                  android:layout_marginEnd="@dimen/dimen_16dp"
+                  android:gravity="center"
+                  android:textColor="@android:color/black"
+                  android:textSize="@dimen/text_dimen_14sp"
+                  app:drawableTopCompat="@drawable/ic_wind"
+                  android:text="@{mainActivityViewModel.windSpeed}"
+                  android:layout_marginRight="@dimen/dimen_16dp"
+                  tools:ignore="UnusedAttribute" />
+
+              <TextView
+                  android:id="@+id/tvHumidity"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_rowWeight="1"
+                  android:layout_columnWeight="1"
+                  android:layout_marginTop="@dimen/dimen_16dp"
+                  android:layout_marginEnd="@dimen/dimen_16dp"
+                  android:gravity="center"
+                  android:textColor="@android:color/black"
+                  android:textSize="@dimen/text_dimen_14sp"
+                  app:drawableTopCompat="@drawable/ic_humidity"
+                  android:text="@{mainActivityViewModel.humidity}"
+                  android:layout_marginRight="@dimen/dimen_16dp"
+                  tools:ignore="UnusedAttribute" />
+              </GridLayout>
+              </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.02"
+            android:contentDescription="Bg Image"
+            android:paddingBottom="-40dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_bad_weather"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
