@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">seeWeather</string>
+    <string name="app_name">Info</string>
     <string name="network_connection_error">Internet connection lost, please retry again</string>
     <string name="network_default_error">Something wrong happened, please retry again</string>
     <string name="network_internal_error">Our systems got an error, please retry again</string>

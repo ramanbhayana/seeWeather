@@ -1,5 +1,6 @@
 package com.example.seeweather.commonUtils.common
 
+import android.graphics.Bitmap
 import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -22,6 +23,10 @@ class CommonUtils() {
                 ""
             }
         }
+
+
+         var bitmap: Bitmap? = null
+
     }
 
 }
